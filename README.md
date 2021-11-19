@@ -1,3 +1,17 @@
+# 실행 방법 & 코드 & 구조
+## 실행방법
+- YoungG209Application에서 실행
+
+## 코드
+- 스웨거 사용
+  - http://localhost:8080/swagger-ui.html
+  - 스프링 부트 실행하여 로컬에서 확인 
+## 구조
+![img_1.png](img_1.png)
+# DB 스키마
+![img.png](img.png)
+---
+
 # 20211112 이영균님
 
 ```
