@@ -7,6 +7,7 @@ import com.youngg209.domain.subjects.SubjectRepository;
 import com.youngg209.dto.processScore.ProcessRequestDto;
 import com.youngg209.dto.processScore.ScoreStudentListResponseDto;
 import com.youngg209.dto.processScore.ScoreSubjectListResponseDto;
+import com.youngg209.exception.CheckScoreException;
 import com.youngg209.exception.StudentNonExistException;
 import com.youngg209.exception.SubjectNonExistException;
 import lombok.RequiredArgsConstructor;
@@ -38,10 +39,10 @@ public class ProcessScoreService {
 
         ProcessScore processScore = processScoreRepository.findByStudentIdAndSubjectId(studentId, subjectId);
 
-        if (score > 0) {
+        if (score > 0 && score <= 100) {
             processScore.update(score);
         }else {
-            throw new IllegalArgumentException("[Request] 점수는 0~100까지만 가능합니다.");
+            throw new CheckScoreException(score);
         }
 
         return ProcessRequestDto.builder().score(processScore.getScore()).studentId(processScore.getStudent().getStudentId()).subjectId(processScore.getSubject().getSubjectId()).build();

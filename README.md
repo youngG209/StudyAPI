@@ -2,12 +2,63 @@
 ## 실행방법
 - YoungG209Application에서 실행
 
-## 코드
-- 스웨거 사용
-  - http://localhost:8080/swagger-ui.html
-  - 스프링 부트 실행하여 로컬에서 확인 
-## 구조
-![img_1.png](img_1.png)
+## 코드 및 구조
+### 코드 설명
+  - controller
+    - ExceptionAdvice : 예외처리
+    - ProcessScoreApiController : 점수 처리 관련 컨트롤러
+    - StudentApiController : 학생 관련 컨트롤러
+    - SubjectApiController : 과목 관련 컨트롤러
+  - service
+    - ProcessScoreService : 점수 처리 서비스
+    - StudentService : 학생 서비스
+    - SubjectService : 과목 서비스
+  - domain
+    - processScore
+      - ProcessScore 점수 처리 엔티티
+      - ProcessScoreRepository : 점수 처리 Repository
+    - students
+      - Student 학생 엔티티
+      - StudentRepository : 학생 Repository
+    - subjects
+      - Subject 과목 엔티티
+      - SubjectRepository : 과목 Repository
+  - dto
+    - ErrorResponseDto : 에러 응답 DTO
+    - ResultMessageDto : 결과 전달 DTO
+    - processScore
+      - ProcessRequestDto : 점수 처리 요구 DTO
+      - ProcessResultStudentDataDto : 점수 처리 학생데이터 DTO
+      - ProcessResultSubjectDataDto : 점수 처리 과목데이터 DTO
+      - ScoreStudentListResponseDto : 점수 처리 학생리스트 DTO
+      - ScoreSubjectListResponseDto : 점수 처리 학생리스트 DTO
+    - student
+      - StudentListResponseDto : 학생 리스트 DTO 
+      - StudentRequestDataDto : 학생 데이터 DTO 
+      - StudentResponseDataDto : 학생 응답 DTO 
+      - StudentSaveRequestDto : 학생 저장용 DTO 
+    - subject
+      - SubjectListResponseDto : 학생 리스트 DTO 
+      - SubjectRequestDataDto : 학생 데이터 DTO 
+      - SubjectResponseDataDto : 학생 응답 DTO 
+      - SubjectSaveRequestDto : 학생 저장용 DTO 
+  - exception
+    - CheckScoreException : 점수 확인 Exception
+    - NotMatchException : 조건 확인 Exception
+    - StudentExistException : 학생 있을때 Exception
+    - StudentNonExistException : 학생 없을때 Exception
+    - SubjectExistException : 과목 있을때 Exception
+    - SubjectNonExistException : 과목 없을때 Exception
+  - utils
+    - ApiStatus : 서버 상태 코드 Enum 
+    - Matches : 조건 확인
+    - SchoolType : 학교타입 Enum
+    - SwaggerConfig : 스웨거
+    
+### 구조
+  - 스웨거 사용
+    - http://localhost:8080/swagger-ui.html
+    - 스프링 부트 실행하여 로컬에서 확인 
 # DB 스키마
 ![img.png](img.png)
 ---

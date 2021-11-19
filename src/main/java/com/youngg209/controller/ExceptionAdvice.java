@@ -86,4 +86,16 @@ public class ExceptionAdvice {
         return ResponseEntity.badRequest().body(new ResultMessageDto(null, error));
     }
 
+    @ExceptionHandler(value = {
+            CheckScoreException.class
+    })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected ResponseEntity<ResultMessageDto> handleCheckScoreException(CheckScoreException e) {
+        final ApiStatus apiStatus = ApiStatus.CHECK_SCORE;
+        String message = apiStatus.getMessage() + "[" +e.getScore() + "]" ;
+        log.error(message);
+        ErrorResponseDto error = new ErrorResponseDto(apiStatus.getCode(), message);
+        return ResponseEntity.badRequest().body(new ResultMessageDto(null, error));
+    }
+
 }

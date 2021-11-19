@@ -26,7 +26,7 @@ public class ProcessScore {
     @JoinColumn(name = "SUBJECT_ID")
     private Subject subject;
 
-    @Min(value = -1, message = "[Request] 점수는 0~100까지만 가능합니다.")
+    @Min(value = -1)
     @Max(value = 100, message = "[Request] 점수는 0~100까지만 가능합니다.")
     private int score;
 
