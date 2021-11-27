@@ -2,13 +2,12 @@ package com.youngg209.utils;
 
 import com.youngg209.dto.student.StudentSaveRequestDto;
 import com.youngg209.dto.subject.SubjectSaveRequestDto;
-import com.youngg209.exception.NotMatchException;
+import com.youngg209.exception.CommonBaseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MatchesTest {
     private Matches matches;
@@ -55,12 +54,12 @@ class MatchesTest {
 
 //        matches.isStudentMatches(requestDto);
 
-        NotMatchException notMatchException = assertThrows(
-                NotMatchException.class,
+        CommonBaseException notMatchException = assertThrows(
+                CommonBaseException.class,
                 () -> matches.isStudentMatches(requestDto)
         );
-        System.out.println(notMatchException.getMatchVal());
-        assertThat(notMatchException.getMatchVal()).isEqualTo(name);
+        System.out.println(notMatchException.getErrorStatus());
+        assertThat(notMatchException.getVal()).isEqualTo(name);
 
 
     }
@@ -80,12 +79,13 @@ class MatchesTest {
                 .phoneNumber(phoneNumber)
                 .build();
 
-        NotMatchException notMatchException = assertThrows(
-                NotMatchException.class,
+
+        CommonBaseException notMatchException = assertThrows(
+                CommonBaseException.class,
                 () -> matches.isStudentMatches(requestDto)
         );
-        System.out.println(notMatchException.getMatchVal());
-        assertThat(notMatchException.getMatchVal()).isEqualTo(name);
+        System.out.println(notMatchException.getErrorStatus());
+        assertThat(notMatchException.getVal()).isEqualTo(name);
 
 
     }
@@ -99,13 +99,13 @@ class MatchesTest {
                 .name(name)
                 .build();
 
-        NotMatchException notMatchException = assertThrows(
-                NotMatchException.class,
+
+        CommonBaseException notMatchException = assertThrows(
+                CommonBaseException.class,
                 () -> matches.isSubjectMatches(requestDto)
         );
-
-        System.out.println(notMatchException.getMatchVal());
-        assertThat(notMatchException.getMatchVal()).isEqualTo(name);
+        System.out.println(notMatchException.getErrorStatus());
+        assertThat(notMatchException.getVal()).isEqualTo(name);
     }
 
     @Test
@@ -117,12 +117,11 @@ class MatchesTest {
                 .name(name)
                 .build();
 
-        NotMatchException notMatchException = assertThrows(
-                NotMatchException.class,
+        CommonBaseException notMatchException = assertThrows(
+                CommonBaseException.class,
                 () -> matches.isSubjectMatches(requestDto)
         );
-
-        System.out.println(notMatchException.getMatchVal());
-        assertThat(notMatchException.getMatchVal()).isEqualTo(name);
+        System.out.println(notMatchException.getErrorStatus());
+        assertThat(notMatchException.getVal()).isEqualTo(name);
     }
 }

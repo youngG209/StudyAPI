@@ -3,7 +3,7 @@ package com.youngg209.utils;
 import lombok.Getter;
 
 @Getter
-public enum ApiStatus {
+public enum ErrorStatus {
     AESTU("ALREADY_EXIST_STUDENT", "이미 존재하는 학생입니다. ", 400),
     AESUB("ALREADY_EXIST_SUBJECT", "이미 존재하는 과목입니다. ", 400),
     STUNF("STUDENT_NOT_FOUND", "학생을 찾을 수 없습니다. ", 400),
@@ -16,7 +16,7 @@ public enum ApiStatus {
     private final String message;
     private final int status;
 
-    ApiStatus(String code, String message, int status) {
+    ErrorStatus(String code, String message, int status) {
         this.code = code;
         this.message = message;
         this.status = status;

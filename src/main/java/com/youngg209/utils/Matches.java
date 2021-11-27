@@ -2,7 +2,7 @@ package com.youngg209.utils;
 
 import com.youngg209.dto.student.StudentSaveRequestDto;
 import com.youngg209.dto.subject.SubjectSaveRequestDto;
-import com.youngg209.exception.NotMatchException;
+import com.youngg209.exception.CommonBaseException;
 
 import java.util.regex.Pattern;
 
@@ -20,13 +20,13 @@ public class Matches {
         String phoneNumber = requestDto.getPhoneNumber();
 
         if (name.length() > 16) {
-            throw new NotMatchException(name);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,name);
         }
         if (!Pattern.matches(namePattern, name)) {
-            throw new NotMatchException(name);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,name);
         }
         if (age <= 0 || age >= 20) {
-            throw new NotMatchException(age);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,String.valueOf(age));
         }
         for (String type : schoolTypePattern) {
             if (type.equals(schoolType)) {
@@ -34,10 +34,10 @@ public class Matches {
             }
         }
         if (!isMatch){
-            throw new NotMatchException(schoolType);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,schoolType);
         }
         if (!Pattern.matches(phoneNumberPattern, phoneNumber)) {
-            throw new NotMatchException(phoneNumber);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,phoneNumber);
         }
 
         return true;
@@ -48,10 +48,10 @@ public class Matches {
         String name = requestDto.getName();
 
         if (name.length() > 12) {
-            throw new NotMatchException(name);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,name);
         }
         if (!Pattern.matches(namePattern, name)) {
-            throw new NotMatchException(name);
+            throw new CommonBaseException(ErrorStatus.NOT_MATCH_VAL,name);
         }
 
         return true;

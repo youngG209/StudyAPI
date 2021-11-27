@@ -8,8 +8,8 @@ import com.youngg209.domain.subjects.Subject;
 import com.youngg209.domain.subjects.SubjectRepository;
 import com.youngg209.dto.subject.SubjectListResponseDto;
 import com.youngg209.dto.subject.SubjectSaveRequestDto;
-import com.youngg209.exception.SubjectExistException;
-import com.youngg209.exception.SubjectNonExistException;
+import com.youngg209.exception.CommonBaseException;
+import com.youngg209.utils.ErrorStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,7 @@ public class SubjectService {
 
         int existName = subjectRepository.countByName(name);
         if (existName > 0){
-            throw new SubjectExistException(name);
+            throw new CommonBaseException(ErrorStatus.AESUB, name);
         }
         List<Student> students = studentRepository.findAll();
         if (students.size() > 0) {
@@ -63,7 +63,7 @@ public class SubjectService {
     @Transactional
     public void delete(Long id) {
         Subject subject = subjectRepository.findById(id)
-                .orElseThrow(() -> new SubjectNonExistException(id));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.SUBNF, String.valueOf(id)));
 
         if (subject != null) {
             processScoreService.deleteBySubject(subject.getSubjectId());

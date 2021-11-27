@@ -7,9 +7,8 @@ import com.youngg209.domain.subjects.SubjectRepository;
 import com.youngg209.dto.processScore.ProcessRequestDto;
 import com.youngg209.dto.processScore.ScoreStudentListResponseDto;
 import com.youngg209.dto.processScore.ScoreSubjectListResponseDto;
-import com.youngg209.exception.CheckScoreException;
-import com.youngg209.exception.StudentNonExistException;
-import com.youngg209.exception.SubjectNonExistException;
+import com.youngg209.exception.CommonBaseException;
+import com.youngg209.utils.ErrorStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,17 +31,17 @@ public class ProcessScoreService {
         int score = processRequestDto.getScore();
 
         studentRepository.findById(studentId)
-                .orElseThrow(() -> new StudentNonExistException(studentId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.STUNF, String.valueOf(studentId)));
 
         subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new SubjectNonExistException(subjectId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.SUBNF, String.valueOf(subjectId)));
 
         ProcessScore processScore = processScoreRepository.findByStudentIdAndSubjectId(studentId, subjectId);
 
         if (score > 0 && score <= 100) {
             processScore.update(score);
         }else {
-            throw new CheckScoreException(score);
+            throw new CommonBaseException(ErrorStatus.CHECK_SCORE, String.valueOf(score));
         }
 
         return ProcessRequestDto.builder().score(processScore.getScore()).studentId(processScore.getStudent().getStudentId()).subjectId(processScore.getSubject().getSubjectId()).build();
@@ -53,10 +52,10 @@ public class ProcessScoreService {
 
 
         studentRepository.findById(studentId)
-                .orElseThrow(() -> new StudentNonExistException(studentId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.STUNF, String.valueOf(studentId)));
 
         subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new SubjectNonExistException(subjectId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.SUBNF, String.valueOf(subjectId)));
 
         ProcessScore processScore = processScoreRepository.findByStudentIdAndSubjectId(studentId, subjectId);
         processScore.update(-1);
@@ -87,7 +86,7 @@ public class ProcessScoreService {
     public List<ScoreSubjectListResponseDto> findAllByStudent(Long studentId) {
 
         studentRepository.findById(studentId)
-                .orElseThrow(() -> new StudentNonExistException(studentId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.STUNF, String.valueOf(studentId)));
 
         return processScoreRepository.findByStudentId(studentId).stream()
                 .map(ScoreSubjectListResponseDto::new)
@@ -98,7 +97,7 @@ public class ProcessScoreService {
     public List<ScoreStudentListResponseDto> findAllBySubject(Long subjectId) {
 
         subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new SubjectNonExistException(subjectId));
+                .orElseThrow(() -> new CommonBaseException(ErrorStatus.SUBNF, String.valueOf(subjectId)));
 
         return processScoreRepository.findBySubjectId(subjectId).stream()
                 .map(ScoreStudentListResponseDto::new)
